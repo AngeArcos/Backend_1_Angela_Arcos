@@ -1,44 +1,34 @@
-//file sistem, existen dos formas de trabajar con file sistem, a través de callback y a través de promesas. 
-//operaciones de file sistem que se usan para un CRUD( create read, ipate, delete) writeFile (create - update) readFile (read) unlink(delete)
-//primero leo el archivo conr eadFile, luego parseo o convierto el archivo js a un objeto json (serializar), con el objeto serializado lo sobre escribo (update)
-//para escribir writeFileSync
-//para leer readFileSync
-//para appendFileSync
-// unlinkSync
-// existsSync
 
-//primero importo
 import fs from 'fs'
-//const fs = require('fs');
+
 import path from 'path';
-//const path = require('path');
+
 import { fileURLToPath } from 'url';
 
-// Esto reemplaza __dirname
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const pathProductos = path.join(__dirname, 'productos.json'); //aqui hay que pasar la direccion donde se encuentra el archivo, la dirección 
+const pathProductos = path.join(__dirname, 'productos.json'); 
 
 function getProducts() {
-    const productos = fs.readFileSync(pathProductos, 'utf-8'); //leo objeto con readFuleSync, devuelve objeto raro 
+    const productos = fs.readFileSync(pathProductos, 'utf-8'); 
     return JSON.parse(productos); 
 }
 
 function getProductsById(pid) {
-    const productos = getProducts(); //primero obtengo los productos (todos), con esta funcion
-    return productos.find(producto =>  producto.id === pid) //luego lo retorno con su id
+    const productos = getProducts(); 
+    return productos.find(producto =>  producto.id === pid) 
 }
 
 function addProduct(product) {
     const productos = getProducts();
-    productos.push(product); //aqui agrego el producto que me envian por parámetro a los productos
-    fs.writeFileSync(pathProductos, JSON.stringify(productos))  //aqui lo leo, lo hagocpon json porque es un archivo json.
+    productos.push(product); 
+    fs.writeFileSync(pathProductos, JSON.stringify(productos))  
 }
 
 function updateProduct(pid, updated) {
     const productos = getProducts();
-    //const productoUpdater =getProductsById(pid); //primero encuentra el producto
     productos [pid - 1] = updated;
     fs.writeFileSync(pathProductos, JSON.stringify(productos)) 
 }

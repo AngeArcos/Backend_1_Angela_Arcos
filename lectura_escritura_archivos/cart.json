@@ -1,0 +1,15 @@
+[
+  {
+    "id": "3522uh2d",
+    "products": [
+      {
+        "product": "prod001",
+        "quantity": 2
+      },
+      {
+        "product": "prod002",
+        "quantity": 1
+      }
+    ]
+  }
+]
